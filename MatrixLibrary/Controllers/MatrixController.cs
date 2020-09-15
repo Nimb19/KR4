@@ -5,7 +5,7 @@ namespace MatrixLibrary.Controllers
     /// <summary>
     /// Класс методов над матрицами.
     /// </summary>
-    public static class MatrixController
+    public static partial class MatrixController
     {
         /// <summary>
         /// Метод произведения матриц.
