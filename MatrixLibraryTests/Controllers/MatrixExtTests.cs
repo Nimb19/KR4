@@ -14,6 +14,7 @@ namespace MatrixLibrary.Controllers.Tests
     public class MatrixExtTests
     {
         private static Matrix[] matrices;
+        private static Vector[] vectors;
 
         [ClassInitialize]
         public static void ClassInit(TestContext testContext)
@@ -24,12 +25,13 @@ namespace MatrixLibrary.Controllers.Tests
                 new Matrix(new double[3, 3] { { 3, 5, 1 }, { 2, 5, -7 }, { 6, 4, -2 } }),
                 new Matrix(new double[4, 4] { { 3, 5, 1, -15 }, { 2, 5, -7, -1 }, { 6, 4, -2, 14 }, { 1, 3, -2, 25 } })
             };
-        }
 
-        [TestMethod]
-        public void MatrixMultiplicationByNumberTest()
-        {
-            Assert.Fail();
+            vectors = new Vector[3]
+            {
+                new Vector(new double[2] { 3, 1 }),
+                new Vector(new double[3] { 66, 2, -11 }),
+                new Vector(new double[4] { 5, 4, -2, 13})
+            };
         }
 
         [TestMethod]
@@ -42,15 +44,20 @@ namespace MatrixLibrary.Controllers.Tests
         }
 
         [TestMethod]
-        public void TransposeOfTheMatrixTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod]
         public void MatrixMultiplicationByVectorTest()
         {
-            Assert.Fail();
+            Vector[] vectorsExpected = new Vector[3]
+            {
+                new Vector(new double[2] { 18, -4 }),
+                new Vector(new double[3] { 197, 219, 426 }),
+                new Vector(new double[4] { -162, 31, 232, 346})
+            };
+
+            Vector[] vectorsActual = new Vector[matrices.Length];
+            for (int i = 0; i < matrices.Length; i++)
+                vectorsActual[i] = matrices[i].MatrixMultiplicationByVector(vectors[i]);
+
+            VectorComparison(vectorsExpected, vectorsActual, "Несоответствие при проверке результата умножения матрицы на вектор.");
         }
 
         [TestMethod]
@@ -72,6 +79,13 @@ namespace MatrixLibrary.Controllers.Tests
                 for (int i = 0; i < matricesExpected[k].GetCountRows; i++)
                     for (int j = 0; j < matricesExpected[k].GetCountColumns; j++)
                         Assert.AreEqual(matricesExpected[k][i, j], matricesActual[k][i, j], 0.01, exceptionMessage);
+        }
+
+        private void VectorComparison(Vector[] vectorsExpected, Vector[] vectorsActual, string exceptionMessage)
+        {
+            for (int k = 0; k < vectorsExpected.Length; k++)
+                for (int i = 0; i < vectorsExpected[k].Count; i++)
+                    Assert.AreEqual(vectorsExpected[k][i], vectorsActual[k][i], 0.01, exceptionMessage);
         }
     }
 }

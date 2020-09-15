@@ -3,6 +3,9 @@ using System.Collections;
 
 namespace MatrixLibrary.Models
 {
+    /// <summary>
+    /// Вектор.
+    /// </summary>
     public class Vector
     {
         public double[] ArrayValues { get; set; }
