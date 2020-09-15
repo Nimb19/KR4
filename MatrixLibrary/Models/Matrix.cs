@@ -20,6 +20,32 @@ namespace MatrixLibrary.Models
         }
 
         /// <summary>
+        /// Создаёт диагональную матрицу и вписывает в неё указанные значения.
+        /// </summary>
+        /// <param name="values"> Значения диагонали матрицы. </param>
+        /// <returns> Диагональная матрица с указанными значениями. </returns>
+        public static Matrix CreateDiagonalMatrix(params double[] values)
+        {
+            var arr = new double[values.Length, values.Length];
+            for (int i = 0; i < values.Length; i++)
+                arr[i, i] = values[i];
+            return new Matrix(arr);
+        }
+
+        /// <summary>
+        /// Создаёт единичную матрицу.
+        /// </summary>
+        /// <param name="mn"> Количество строк/столбцов. </param>
+        /// <returns> Единичная матрица указанной размерности. </returns>
+        public static Matrix CreateIdentityMatrix(int mn)
+        {
+            var arr = new double[mn, mn];
+            for (int i = 0; i < mn; i++)
+                arr[i, i] = 1;
+            return new Matrix(arr);
+        }
+
+        /// <summary>
         /// Создаёт пустую матрицу с указанной размерностью.
         /// </summary>
         /// <param name="m"> Количество строк. </param>

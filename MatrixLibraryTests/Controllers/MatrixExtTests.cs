@@ -1,12 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MatrixLibrary.Controllers;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using MatrixLibrary.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MatrixLibrary.Controllers.Tests
 {

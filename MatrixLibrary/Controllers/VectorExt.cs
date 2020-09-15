@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using MatrixLibrary.Models;
+﻿using MatrixLibrary.Models;
 
 namespace MatrixLibrary.Controllers
 {
+    /// <summary>
+    /// Статический класс, предназначенный только для методов расширений векторов.
+    /// </summary>
     public static class VectorExt
     {
         /// <summary>
@@ -25,6 +22,22 @@ namespace MatrixLibrary.Controllers
 
             for (int i = vector.Count; i < elements.Length; i++)
                 arr[i] = elements[i];
+
+            return new Vector(arr);
+        }
+
+        /// <summary>
+        /// Метод сложения векторов.
+        /// </summary>
+        /// <param name="one"> Первый вектор. </param>
+        /// <param name="two"> Второй вектор. </param>
+        /// <returns> Вектор - результат сложения. </returns>
+        public static Vector VectorAddition(this Vector one, Vector two)
+        {
+            var arr = new double[one.Count];
+
+            for (int i = 0; i < one.Count; i++)
+                arr[i] = one[i] + two[i];
 
             return new Vector(arr);
         }
