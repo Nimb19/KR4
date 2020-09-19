@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
-
 using MatrixLibrary.Controllers;
 
 namespace MatrixLibrary.Models
@@ -24,33 +21,13 @@ namespace MatrixLibrary.Models
         /// Создаёт матрицу на основе указанного массива.
         /// </summary>
         /// <param name="arrayValues"> Значения матрицы в двумерном массиве. </param>
-        public Matrix(double[,] arrayValues) => ArrayValues = arrayValues;
+        public Matrix(double[,] arrayValues) => ArrayValues = arrayValues.Clone() as double[,];
 
         /// <summary>
-        /// Создаёт диагональную матрицу и вписывает в неё указанные значения.
+        /// Создаёт копию указанной матрицы.
         /// </summary>
-        /// <param name="values"> Значения диагонали матрицы. </param>
-        /// <returns> Диагональная матрица с указанными значениями. </returns>
-        public static Matrix CreateDiagonalMatrix(params double[] values)
-        {
-            var arr = new double[values.Length, values.Length];
-            for (int i = 0; i < values.Length; i++)
-                arr[i, i] = values[i];
-            return new Matrix(arr);
-        }
-
-        /// <summary>
-        /// Создаёт единичную матрицу.
-        /// </summary>
-        /// <param name="mn"> Количество строк/столбцов. </param>
-        /// <returns> Единичная матрица указанной размерности. </returns>
-        public static Matrix CreateIdentityMatrix(int mn)
-        {
-            var arr = new double[mn, mn];
-            for (int i = 0; i < mn; i++)
-                arr[i, i] = 1;
-            return new Matrix(arr);
-        }
+        /// <param name="matrix"> Матрица образец. </param>
+        public Matrix(Matrix matrix) => ArrayValues = matrix.ArrayValues.Clone() as double[,];
 
         /// <summary>
         /// Создаёт пустую матрицу с указанной размерностью.
@@ -89,34 +66,45 @@ namespace MatrixLibrary.Models
         /// <summary>
         /// Метод сравнения матриц.
         /// </summary>
-        /// <param name="matrixExpected"></param>
-        /// <param name="matrixActual"></param>
-        /// <returns></returns>
-        public static bool MatrixComparison(Matrix matrixExpected, Matrix matrixActual)
+        /// <param name="one"> Первая матрица. </param>
+        /// <param name="two"> Вторая матрица. </param>
+        /// <returns> true - если значения матриц равны. </returns>
+        public static bool MatrixComparison(Matrix one, Matrix two)
         {
-            for (int i = 0; i < matrixExpected.GetCountRows; i++)
-                for (int j = 0; j < matrixExpected.GetCountColumns; j++)
-                    if (matrixExpected[i, j] - matrixActual[i, j] > 0.01)
+            for (int i = 0; i < one.GetCountRows; i++)
+                for (int j = 0; j < one.GetCountColumns; j++)
+                    if (Math.Abs(one[i, j] - two[i, j]) > 0.01)
                         return false;
             return true;
         }
 
+        /// <summary>
+        /// Преобразует информацию о классе в переменную строкового типа.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder str = new StringBuilder();
 
+            str.Append(" /");
             for (int m = 0; m < GetCountRows; m++)
             {
-                str.Append("| ");
+                if (m != 0)
+                    str.Append("| ");
 
                 for (int n = 0; n < GetCountColumns; n++)
-                    str.Append(this[m, n] + " ");
+                {
+                    str.Append(this[m, n]);
+                    if (m != 0 && m != GetCountRows && n == GetCountColumns)
+                        str.Append(" ");
+                }
 
-                if (m != GetCountColumns - 1)
+                if (m == 0)
+                    str.Append("\\\n");
+                else if (m != GetCountColumns - 1)
                     str.Append("|\n");
-                else
-                    str.Append("|");
             }
+            str.Append(@"/");
 
             return str.ToString();
         }

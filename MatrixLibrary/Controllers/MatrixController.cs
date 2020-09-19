@@ -3,7 +3,7 @@
 namespace MatrixLibrary.Controllers
 {
     /// <summary>
-    /// Класс методов над матрицами.
+    /// Класс методов действий над матрицами.
     /// </summary>
     public static partial class MatrixController
     {

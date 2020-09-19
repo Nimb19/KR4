@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatrixLibrary.Controllers;
+using System;
 using System.Linq;
 using MatrixLibrary.Models;
 
@@ -69,48 +70,83 @@ namespace MatrixLibrary.Controllers.Tests
             MatriciesComparison(matricesExpected, matrices.Select(x => x.InverseOfAMatrix()).ToArray(), "Несоответствие при проверке результата нахождения обратной матрицы.");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void MatrixMultiplicationByNumberTest()
         {
             throw new NotImplementedException();
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void TransposeOfTheMatrixTest()
         {
             throw new NotImplementedException();
         }
 
 
-        [TestMethod()]
+        [TestMethod]
         public void FindAlgebraicComplementTest()
         {
             throw new NotImplementedException();
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void MatrixMultiplicationTest()
         {
             throw new NotImplementedException();
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void MatrixAdditionTest()
         {
             throw new NotImplementedException();
         }
 
-        private void MatriciesComparison(Matrix[] matricesExpected, Matrix[] matricesActual, string exceptionMessage)
+        [TestMethod]
+        public void CreateDiagonalMatrixTest()
         {
-            for (int k = 0; k < matricesExpected.Length; k++)
-                        Assert.IsTrue(matricesExpected[k] == matricesActual[k], exceptionMessage);
+            throw new NotImplementedException();
         }
 
-        private void VectorsComparison(Vector[] vectorsExpected, Vector[] vectorsActual, string exceptionMessage)
+        [TestMethod]
+        public void CreateHorizontalBlockMatrixTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void CreateVerticalBlockMatrixTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void CreateIdentityMatrixTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Метод сравнения ожидаемых и актуальных матриц.
+        /// </summary>
+        /// <param name="matricesExpected"> Массив ожидаемых матриц. </param>
+        /// <param name="matricesActual"> Массив актуальных матриц. </param>
+        /// <param name="exceptionMessage"> Сообщение об ошибке. </param>
+        public void MatriciesComparison(Matrix[] matricesExpected, Matrix[] matricesActual, string exceptionMessage)
+        {
+            for (int k = 0; k < matricesExpected.Length; k++)
+                Assert.IsTrue(matricesExpected[k] == matricesActual[k], exceptionMessage);
+        }
+
+        /// <summary>
+        /// Метод сравнения ожидаемых и актуальных векторов.
+        /// </summary>
+        /// <param name="vectorsExpected"> Массив ожидаемых векторов. </param>
+        /// <param name="vectorsActual"> Массив актуальных векторов. </param>
+        /// <param name="exceptionMessage"> Сообщение об ошибке. </param>
+        public void VectorsComparison(Vector[] vectorsExpected, Vector[] vectorsActual, string exceptionMessage)
         {
             for (int k = 0; k < vectorsExpected.Length; k++)
-                for (int i = 0; i < vectorsExpected[k].Count; i++)
-                    Assert.AreEqual(vectorsExpected[k][i], vectorsActual[k][i], 0.01, exceptionMessage);
+                Assert.IsTrue(vectorsExpected[k] == vectorsActual[k], exceptionMessage);
         }
     }
 }
