@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CramerRuleMethod.cs" />
+    <Compile Include="Controllers\Exceptions.cs" />
     <Compile Include="Controllers\MatrixController.cs" />
     <Compile Include="Controllers\MatrixCreatingMethods.cs" />
     <Compile Include="Controllers\MatrixExt.cs" />

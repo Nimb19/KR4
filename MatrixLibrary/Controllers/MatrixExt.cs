@@ -30,7 +30,7 @@ namespace MatrixLibrary.Controllers
         /// </summary>
         /// <param name="matrix"> Матрица. </param>
         /// <returns> Определитель матрицы. </returns>
-        public static double FindingTheDeterminant(this Matrix _matrix)
+        public static double FindingTheDeterminant(this Matrix _matrix, bool throwNewErrorIfTheDeterminantIsZero = false, string exceptionMessage = "")
         {
             if (_matrix.GetCountColumns != _matrix.GetCountRows)
                 throw new ArgumentException("У матрицы должно совпадать количество строк и столбцов.", nameof(_matrix));
@@ -51,6 +51,9 @@ namespace MatrixLibrary.Controllers
             det = 1;
             for (i = 0; i < n; i++)
                 det = det * matrix[i, i];
+
+            if (throwNewErrorIfTheDeterminantIsZero)
+                throw new ZeroDeterminantException(exceptionMessage);
 
             return det;
         }
