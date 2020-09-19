@@ -3,9 +3,6 @@ using MatrixLibrary.Models;
 
 namespace MatrixLibrary.Controllers
 {
-    /// <summary>
-    /// Файл для методов создания матрицы.
-    /// </summary>
     public static partial class MatrixController
     {
         /// <summary>

@@ -3,9 +3,6 @@ using MatrixLibrary.Models;
 
 namespace MatrixLibrary.Controllers
 {
-    /// <summary>
-    /// В этом файле записываются все методы расширения класса Matrix. Исключения - методы решения СЛАУ.
-    /// </summary>
     public static partial class MatrixController
     {
         /// <summary>

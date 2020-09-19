@@ -125,13 +125,25 @@ namespace MatrixLibrary.Controllers.Tests
             throw new NotImplementedException();
         }
 
+        [TestMethod]
+        public void CramerRuleMethodTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void ChangeColumnOfMatrixToSpecifiedVectorTest()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Метод сравнения ожидаемых и актуальных матриц.
         /// </summary>
         /// <param name="matricesExpected"> Массив ожидаемых матриц. </param>
         /// <param name="matricesActual"> Массив актуальных матриц. </param>
         /// <param name="exceptionMessage"> Сообщение об ошибке. </param>
-        public void MatriciesComparison(Matrix[] matricesExpected, Matrix[] matricesActual, string exceptionMessage)
+        public static void MatriciesComparison(Matrix[] matricesExpected, Matrix[] matricesActual, string exceptionMessage)
         {
             for (int k = 0; k < matricesExpected.Length; k++)
                 Assert.IsTrue(matricesExpected[k] == matricesActual[k], exceptionMessage);
@@ -143,7 +155,7 @@ namespace MatrixLibrary.Controllers.Tests
         /// <param name="vectorsExpected"> Массив ожидаемых векторов. </param>
         /// <param name="vectorsActual"> Массив актуальных векторов. </param>
         /// <param name="exceptionMessage"> Сообщение об ошибке. </param>
-        public void VectorsComparison(Vector[] vectorsExpected, Vector[] vectorsActual, string exceptionMessage)
+        public static void VectorsComparison(Vector[] vectorsExpected, Vector[] vectorsActual, string exceptionMessage)
         {
             for (int k = 0; k < vectorsExpected.Length; k++)
                 Assert.IsTrue(vectorsExpected[k] == vectorsActual[k], exceptionMessage);

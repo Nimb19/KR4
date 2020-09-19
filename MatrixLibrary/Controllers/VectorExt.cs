@@ -3,7 +3,7 @@
 namespace MatrixLibrary.Controllers
 {
     /// <summary>
-    /// В этом файле записываются все методы расширения класса Vector.
+    /// Класс методов действий над векторами.
     /// </summary>
     public static partial class VectorController
     {
