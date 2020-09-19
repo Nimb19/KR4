@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 using MatrixLibrary.Controllers;
 
@@ -99,5 +100,28 @@ namespace MatrixLibrary.Models
                         return false;
             return true;
         }
+
+        public override string ToString()
+        {
+            StringBuilder str = new StringBuilder();
+
+            for (int m = 0; m < GetCountRows; m++)
+            {
+                str.Append("| ");
+
+                for (int n = 0; n < GetCountColumns; n++)
+                    str.Append(this[m, n] + " ");
+
+                if (m != GetCountColumns - 1)
+                    str.Append("|\n");
+                else
+                    str.Append("|");
+            }
+
+            return str.ToString();
+        }
+
+        public override bool Equals(object obj) => MatrixComparison(this, obj as Matrix);
+        public override int GetHashCode() => base.GetHashCode();
     }
 }
