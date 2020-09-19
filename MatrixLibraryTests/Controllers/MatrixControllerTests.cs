@@ -103,9 +103,7 @@ namespace MatrixLibrary.Controllers.Tests
         private void MatriciesComparison(Matrix[] matricesExpected, Matrix[] matricesActual, string exceptionMessage)
         {
             for (int k = 0; k < matricesExpected.Length; k++)
-                for (int i = 0; i < matricesExpected[k].GetCountRows; i++)
-                    for (int j = 0; j < matricesExpected[k].GetCountColumns; j++)
-                        Assert.AreEqual(matricesExpected[k][i, j], matricesActual[k][i, j], 0.01, exceptionMessage);
+                        Assert.IsTrue(matricesExpected[k] == matricesActual[k], exceptionMessage);
         }
 
         private void VectorsComparison(Vector[] vectorsExpected, Vector[] vectorsActual, string exceptionMessage)

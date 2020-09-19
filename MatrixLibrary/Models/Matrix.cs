@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using MatrixLibrary.Controllers;
+
 namespace MatrixLibrary.Models
 {
     /// <summary>
@@ -77,6 +79,25 @@ namespace MatrixLibrary.Models
             {
                 ArrayValues[m, n] = value;
             }
+        }
+
+        public static Matrix operator +(Matrix one, Matrix two) => MatrixController.MatrixAddition(one, two);
+        public static bool operator ==(Matrix one, Matrix two) => MatrixComparison(one, two);
+        public static bool operator !=(Matrix one, Matrix two) => !MatrixComparison(one, two);
+
+        /// <summary>
+        /// Метод сравнения матриц.
+        /// </summary>
+        /// <param name="matrixExpected"></param>
+        /// <param name="matrixActual"></param>
+        /// <returns></returns>
+        public static bool MatrixComparison(Matrix matrixExpected, Matrix matrixActual)
+        {
+            for (int i = 0; i < matrixExpected.GetCountRows; i++)
+                for (int j = 0; j < matrixExpected.GetCountColumns; j++)
+                    if (matrixExpected[i, j] - matrixActual[i, j] > 0.01)
+                        return false;
+            return true;
         }
     }
 }
