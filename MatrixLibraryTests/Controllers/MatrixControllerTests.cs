@@ -1,11 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using MatrixLibrary.Models;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MatrixLibrary.Controllers.Tests
 {
     [TestClass]
-    public class MatrixExtTests
+    public class MatrixControllerTests
     {
         private static Matrix[] matrices;
         private static Vector[] vectors;
@@ -51,7 +53,7 @@ namespace MatrixLibrary.Controllers.Tests
             for (int i = 0; i < matrices.Length; i++)
                 vectorsActual[i] = matrices[i].MatrixMultiplicationByVector(vectors[i]);
 
-            VectorComparison(vectorsExpected, vectorsActual, "Несоответствие при проверке результата умножения матрицы на вектор.");
+            VectorsComparison(vectorsExpected, vectorsActual, "Несоответствие при проверке результата умножения матрицы на вектор.");
         }
 
         [TestMethod]
@@ -64,10 +66,41 @@ namespace MatrixLibrary.Controllers.Tests
                 new Matrix(new double[4, 4] { { -0.059, -0.0273, 0.233, -0.167 }, { 0.182, 0.0103, -0.124, 0.179 }, { 0.114, -0.142, -0.0226, 0.0756 }, { -0.0103, -0.0115, -0.00376, 0.0313 } })
             };
 
-            MatrixComparison(matricesExpected, matrices.Select(x => x.InverseOfAMatrix()).ToArray(), "Несоответствие при проверке результата нахождения обратной матрицы.");
+            MatriciesComparison(matricesExpected, matrices.Select(x => x.InverseOfAMatrix()).ToArray(), "Несоответствие при проверке результата нахождения обратной матрицы.");
         }
 
-        private void MatrixComparison(Matrix[] matricesExpected, Matrix[] matricesActual, string exceptionMessage)
+        [TestMethod()]
+        public void MatrixMultiplicationByNumberTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void TransposeOfTheMatrixTest()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        [TestMethod()]
+        public void FindAlgebraicComplementTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void MatrixMultiplicationTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void MatrixAdditionTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void MatriciesComparison(Matrix[] matricesExpected, Matrix[] matricesActual, string exceptionMessage)
         {
             for (int k = 0; k < matricesExpected.Length; k++)
                 for (int i = 0; i < matricesExpected[k].GetCountRows; i++)
@@ -75,7 +108,7 @@ namespace MatrixLibrary.Controllers.Tests
                         Assert.AreEqual(matricesExpected[k][i, j], matricesActual[k][i, j], 0.01, exceptionMessage);
         }
 
-        private void VectorComparison(Vector[] vectorsExpected, Vector[] vectorsActual, string exceptionMessage)
+        private void VectorsComparison(Vector[] vectorsExpected, Vector[] vectorsActual, string exceptionMessage)
         {
             for (int k = 0; k < vectorsExpected.Length; k++)
                 for (int i = 0; i < vectorsExpected[k].Count; i++)

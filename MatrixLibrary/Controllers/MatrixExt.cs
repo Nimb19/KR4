@@ -4,9 +4,9 @@ using MatrixLibrary.Models;
 namespace MatrixLibrary.Controllers
 {
     /// <summary>
-    /// Статический класс, предназначенный только для методов расширений матриц.
+    /// В этом файле записываются все методы расширения класса Matrix. Исключения - методы решения СЛАУ.
     /// </summary>
-    public static class MatrixExt
+    public static partial class MatrixController
     {
         /// <summary>
         /// Метод умножения матрицы на число.

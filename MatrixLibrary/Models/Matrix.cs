@@ -4,20 +4,24 @@ using System.Collections.Generic;
 
 namespace MatrixLibrary.Models
 {
+    /// <summary>
+    /// Матрица.
+    /// </summary>
     public class Matrix
     {
+        /// <summary>
+        /// Значения матрицы в виде массива.
+        /// </summary>
         public double[,] ArrayValues { get; set; }
-        public int GetCountColumns { get { return ArrayValues.GetLength(0); } }
-        public int GetCountRows { get { return ArrayValues.GetLength(1); } }
+
+        public int GetCountColumns => ArrayValues.GetLength(0);
+        public int GetCountRows => ArrayValues.GetLength(1);
 
         /// <summary>
         /// Создаёт матрицу на основе указанного массива.
         /// </summary>
-        /// <param name="a"> Значения матрицы в двумерном массиве. </param>
-        public Matrix(double[,] a)
-        {
-            ArrayValues = a;
-        }
+        /// <param name="arrayValues"> Значения матрицы в двумерном массиве. </param>
+        public Matrix(double[,] arrayValues) => ArrayValues = arrayValues;
 
         /// <summary>
         /// Создаёт диагональную матрицу и вписывает в неё указанные значения.
@@ -50,12 +54,19 @@ namespace MatrixLibrary.Models
         /// </summary>
         /// <param name="m"> Количество строк. </param>
         /// <param name="n"> Количество столбцов. </param>
-        public Matrix(int m, int n)
-        {
-            ArrayValues = new double[m, n];
-        }
+        public Matrix(int m, int n) => ArrayValues = new double[m, n];
 
+        /// <summary>
+        /// Количество всех элементов матрицы.
+        /// </summary>
         public int Count => ArrayValues.Length;
+
+        /// <summary>
+        /// Индексация матрицы.
+        /// </summary>
+        /// <param name="m"> Строка искомого элемента. </param>
+        /// <param name="n"> Столбец искомого элемента. </param>
+        /// <returns> Значение по указанной строке и столбцу. </returns>
         public double this[int m, int n]
         {
             get

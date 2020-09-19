@@ -3,9 +3,9 @@
 namespace MatrixLibrary.Controllers
 {
     /// <summary>
-    /// Статический класс, предназначенный только для методов расширений векторов.
+    /// В этом файле записываются все методы расширения класса Vector.
     /// </summary>
-    public static class VectorExt
+    public static partial class VectorController
     {
         /// <summary>
         /// Добавляет указанные элементы в конец вектора.
