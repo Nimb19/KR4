@@ -280,5 +280,21 @@ namespace Interface
         {
             return JsonConvert.DeserializeObject<DGVsParameters>(File.ReadAllText(filepath));
         }
+
+        private void Settings_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt && e.KeyCode == Keys.X)
+            {
+                ApplicationCloseToolStripMenuItem_Click(this, null);
+            }
+            else if (e.KeyCode == Keys.F3)
+            {
+                OpenFileToolStripMenuItem_Click(this, null);
+            }
+            else if ((e.KeyCode == Keys.F2) || (e.Control && e.KeyCode == Keys.S))
+            {
+                SaveResultsF2ToolStripMenuItem_Click(this, null);
+            }
+        }
     }
 }
