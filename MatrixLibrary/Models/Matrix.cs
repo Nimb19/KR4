@@ -14,8 +14,8 @@ namespace MatrixLibrary.Models
         /// </summary>
         public double[,] ArrayValues { get; set; }
 
-        public int GetCountColumns => ArrayValues.GetLength(0);
-        public int GetCountRows => ArrayValues.GetLength(1);
+        public int GetCountRows => ArrayValues.GetLength(0);
+        public int GetCountColumns => ArrayValues.GetLength(1);
 
         /// <summary>
         /// Создаёт матрицу на основе указанного массива.
@@ -44,39 +44,24 @@ namespace MatrixLibrary.Models
         /// <summary>
         /// Индексация матрицы.
         /// </summary>
-        /// <param name="m"> Строка искомого элемента. </param>
-        /// <param name="n"> Столбец искомого элемента. </param>
+        /// <param name="columnIdex"> Строка искомого элемента. </param>
+        /// <param name="rowIndex"> Столбец искомого элемента. </param>
         /// <returns> Значение по указанной строке и столбцу. </returns>
-        public double this[int m, int n]
+        public double this[int columnIdex, int rowIndex]
         {
             get
             {
-                return ArrayValues[m, n];
+                return ArrayValues[columnIdex, rowIndex];
             }
             set
             {
-                ArrayValues[m, n] = value;
+                ArrayValues[columnIdex, rowIndex] = value;
             }
         }
 
         public static Matrix operator +(Matrix one, Matrix two) => MatrixController.MatrixAddition(one, two);
-        public static bool operator ==(Matrix one, Matrix two) => MatrixComparison(one, two);
-        public static bool operator !=(Matrix one, Matrix two) => !MatrixComparison(one, two);
-
-        /// <summary>
-        /// Метод сравнения матриц.
-        /// </summary>
-        /// <param name="one"> Первая матрица. </param>
-        /// <param name="two"> Вторая матрица. </param>
-        /// <returns> true - если значения матриц равны. </returns>
-        public static bool MatrixComparison(Matrix one, Matrix two)
-        {
-            for (int i = 0; i < one.GetCountRows; i++)
-                for (int j = 0; j < one.GetCountColumns; j++)
-                    if (Math.Abs(one[i, j] - two[i, j]) > 0.01)
-                        return false;
-            return true;
-        }
+        public static bool operator ==(Matrix one, Matrix two) => MatrixController.MatrixComparison(one, two);
+        public static bool operator !=(Matrix one, Matrix two) => !MatrixController.MatrixComparison(one, two);
 
         /// <summary>
         /// Преобразует информацию о классе в переменную строкового типа.
@@ -109,7 +94,7 @@ namespace MatrixLibrary.Models
             return str.ToString();
         }
 
-        public override bool Equals(object obj) => MatrixComparison(this, obj as Matrix);
+        public override bool Equals(object obj) => MatrixController.MatrixComparison(this, obj as Matrix);
         public override int GetHashCode() => base.GetHashCode();
     }
 }

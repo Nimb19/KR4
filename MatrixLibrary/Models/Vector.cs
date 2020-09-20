@@ -2,8 +2,12 @@
 using System.Collections;
 using System.Text;
 
+using MatrixLibrary.Controllers;
+
 namespace MatrixLibrary.Models
 {
+    [Serializable]
+
     /// <summary>
     /// Вектор.
     /// </summary>
@@ -48,22 +52,8 @@ namespace MatrixLibrary.Models
             }
         }
 
-        public static bool operator ==(Vector one, Vector two) => VectorComparison(one, two);
-        public static bool operator !=(Vector one, Vector two) => !VectorComparison(one, two);
-
-        /// <summary>
-        /// Метод сравнения векторов.
-        /// </summary>
-        /// <param name="one"> Первый вектор. </param>
-        /// <param name="two"> Второй вектор. </param>
-        /// <returns> true - если значения векторов равны. </returns>
-        public static bool VectorComparison(Vector one, Vector two)
-        {
-            for (int i = 0; i < one.Count; i++)
-                if (Math.Abs(one[i] - two[i]) > 0.01)
-                    return false;
-            return true;
-        }
+        public static bool operator ==(Vector one, Vector two) => VectorController.VectorComparison(one, two);
+        public static bool operator !=(Vector one, Vector two) => !VectorController.VectorComparison(one, two);
 
         /// <summary>
         /// Преобразует информацию о классе в переменную строкового типа.
@@ -74,7 +64,7 @@ namespace MatrixLibrary.Models
             return base.ToString();
         }
 
-        public override bool Equals(object obj) => VectorComparison(this, obj as Vector);
+        public override bool Equals(object obj) => VectorController.VectorComparison(this, obj as Vector);
         public override int GetHashCode() => base.GetHashCode();
     }
 }

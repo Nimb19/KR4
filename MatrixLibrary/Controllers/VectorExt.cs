@@ -1,4 +1,6 @@
-﻿using MatrixLibrary.Models;
+﻿using System;
+
+using MatrixLibrary.Models;
 
 namespace MatrixLibrary.Controllers
 {
@@ -40,6 +42,20 @@ namespace MatrixLibrary.Controllers
                 arr[i] = one[i] + two[i];
 
             return new Vector(arr);
+        }
+
+        /// <summary>
+        /// Метод сравнения векторов.
+        /// </summary>
+        /// <param name="one"> Первый вектор. </param>
+        /// <param name="two"> Второй вектор. </param>
+        /// <returns> true - если значения векторов равны. </returns>
+        public static bool VectorComparison(Vector one, Vector two)
+        {
+            for (int i = 0; i < one.Count; i++)
+                if (Math.Abs(one[i] - two[i]) > 0.01)
+                    return false;
+            return true;
         }
     }
 }

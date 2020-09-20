@@ -23,6 +23,21 @@ namespace MatrixLibrary.Controllers
         }
 
         /// <summary>
+        /// Метод сравнения матриц.
+        /// </summary>
+        /// <param name="one"> Первая матрица. </param>
+        /// <param name="two"> Вторая матрица. </param>
+        /// <returns> true - если значения матриц равны. </returns>
+        public static bool MatrixComparison(Matrix one, Matrix two)
+        {
+            for (int i = 0; i < one.GetCountRows; i++)
+                for (int j = 0; j < one.GetCountColumns; j++)
+                    if (Math.Abs(one[i, j] - two[i, j]) > 0.01)
+                        return false;
+            return true;
+        }
+
+        /// <summary>
         /// Метод нахождения определителя матрицы.
         /// </summary>
         /// <param name="matrix"> Матрица. </param>
