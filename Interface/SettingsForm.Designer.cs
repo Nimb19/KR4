@@ -85,12 +85,14 @@
             this.jnrhsnmToolStripMenuItem.Name = "jnrhsnmToolStripMenuItem";
             this.jnrhsnmToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.jnrhsnmToolStripMenuItem.Text = "Открыть файл данных F3";
+            this.jnrhsnmToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
             // 
             // сохранитьРезультатыВФайлF2ToolStripMenuItem
             // 
             this.сохранитьРезультатыВФайлF2ToolStripMenuItem.Name = "сохранитьРезультатыВФайлF2ToolStripMenuItem";
             this.сохранитьРезультатыВФайлF2ToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.сохранитьРезультатыВФайлF2ToolStripMenuItem.Text = "Сохранить результаты в файл F2";
+            this.сохранитьРезультатыВФайлF2ToolStripMenuItem.Click += new System.EventHandler(this.SaveResultsF2ToolStripMenuItem_Click);
             // 
             // сохранитьКакToolStripMenuItem
             // 
@@ -104,6 +106,7 @@
             this.закрытьФайлToolStripMenuItem.Name = "закрытьФайлToolStripMenuItem";
             this.закрытьФайлToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.закрытьФайлToolStripMenuItem.Text = "Закрыть файл";
+            this.закрытьФайлToolStripMenuItem.Click += new System.EventHandler(this.CloseFileToolStripMenuItem_Click);
             // 
             // выходИзПрограммыToolStripMenuItem
             // 

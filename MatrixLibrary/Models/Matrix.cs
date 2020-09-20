@@ -47,15 +47,15 @@ namespace MatrixLibrary.Models
         /// <param name="columnIdex"> Строка искомого элемента. </param>
         /// <param name="rowIndex"> Столбец искомого элемента. </param>
         /// <returns> Значение по указанной строке и столбцу. </returns>
-        public double this[int columnIdex, int rowIndex]
+        public double this[int rowIndex, int columnIdex]
         {
             get
             {
-                return ArrayValues[columnIdex, rowIndex];
+                return ArrayValues[rowIndex, columnIdex];
             }
             set
             {
-                ArrayValues[columnIdex, rowIndex] = value;
+                ArrayValues[rowIndex, columnIdex] = value;
             }
         }
 

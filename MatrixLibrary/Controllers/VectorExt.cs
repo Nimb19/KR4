@@ -52,6 +52,9 @@ namespace MatrixLibrary.Controllers
         /// <returns> true - если значения векторов равны. </returns>
         public static bool VectorComparison(Vector one, Vector two)
         {
+            if (one as object == null || two as object == null)
+                return false;
+
             for (int i = 0; i < one.Count; i++)
                 if (Math.Abs(one[i] - two[i]) > 0.01)
                     return false;
