@@ -30,6 +30,8 @@ namespace MatrixLibrary.Controllers
         /// <returns> true - если значения матриц равны. </returns>
         public static bool MatrixComparison(Matrix one, Matrix two)
         {
+            if (one as object == null && two as object == null)
+                return true;
             if (one as object == null || two as object == null)
                 return false;
             for (int i = 0; i < one.GetCountRows; i++)

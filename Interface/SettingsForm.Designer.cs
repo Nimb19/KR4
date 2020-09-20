@@ -141,7 +141,7 @@
             this.dgvA.AllowUserToAddRows = false;
             this.dgvA.AllowUserToDeleteRows = false;
             this.dgvA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvA.Location = new System.Drawing.Point(19, 136);
+            this.dgvA.Location = new System.Drawing.Point(20, 136);
             this.dgvA.Name = "dgvA";
             this.dgvA.Size = new System.Drawing.Size(682, 200);
             this.dgvA.TabIndex = 7;
@@ -149,7 +149,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 103);
+            this.label3.Location = new System.Drawing.Point(22, 103);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(156, 21);
             this.label3.TabIndex = 12;
@@ -159,7 +159,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(15, 38);
+            this.label1.Location = new System.Drawing.Point(16, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(214, 19);
             this.label1.TabIndex = 8;
@@ -167,7 +167,7 @@
             // 
             // numericColsA
             // 
-            this.numericColsA.Location = new System.Drawing.Point(210, 101);
+            this.numericColsA.Location = new System.Drawing.Point(211, 101);
             this.numericColsA.Maximum = new decimal(new int[] {
             10,
             0,
@@ -186,10 +186,11 @@
             0,
             0,
             0});
+            this.numericColsA.ValueChanged += new System.EventHandler(this.NumericColsA_ValueChanged);
             // 
             // numericRowsA
             // 
-            this.numericRowsA.Location = new System.Drawing.Point(210, 68);
+            this.numericRowsA.Location = new System.Drawing.Point(211, 68);
             this.numericRowsA.Maximum = new decimal(new int[] {
             10,
             0,
@@ -208,11 +209,12 @@
             0,
             0,
             0});
+            this.numericRowsA.ValueChanged += new System.EventHandler(this.NumericRowsA_ValueChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 70);
+            this.label2.Location = new System.Drawing.Point(22, 70);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(147, 21);
             this.label2.TabIndex = 10;
@@ -223,7 +225,7 @@
             this.dgvQ.AllowUserToAddRows = false;
             this.dgvQ.AllowUserToDeleteRows = false;
             this.dgvQ.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvQ.Location = new System.Drawing.Point(19, 402);
+            this.dgvQ.Location = new System.Drawing.Point(20, 402);
             this.dgvQ.Name = "dgvQ";
             this.dgvQ.Size = new System.Drawing.Size(315, 327);
             this.dgvQ.TabIndex = 13;
@@ -231,27 +233,27 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(21, 356);
+            this.label4.Location = new System.Drawing.Point(22, 356);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(208, 43);
             this.label4.TabIndex = 14;
-            this.label4.Text = "2) Объем потоков в узлах:";
+            this.label4.Text = "2) Объем потоков в узлах (Q):";
             // 
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(400, 356);
+            this.label5.Location = new System.Drawing.Point(401, 356);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(250, 43);
             this.label5.TabIndex = 16;
-            this.label5.Text = "3) Стоимость перевозок по ветвям:";
+            this.label5.Text = "3) Стоимость перевозок по ветвям (R):";
             // 
             // dgvR
             // 
             this.dgvR.AllowUserToAddRows = false;
             this.dgvR.AllowUserToDeleteRows = false;
             this.dgvR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvR.Location = new System.Drawing.Point(386, 402);
+            this.dgvR.Location = new System.Drawing.Point(387, 402);
             this.dgvR.Name = "dgvR";
             this.dgvR.Size = new System.Drawing.Size(315, 327);
             this.dgvR.TabIndex = 15;
@@ -280,6 +282,7 @@
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Форма настройки данных для решения";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Settings_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using MatrixLibrary.Models;
 using Newtonsoft.Json;
@@ -29,14 +30,13 @@ namespace Interface
             dgvQ.Columns.Clear();
 
             SetSettingsInDGV();
-            AddColumnsA(Convert.ToInt32(numericColsA.Value));
-            AddRowsA(Convert.ToInt32(numericRowsA.Value));
+            SetCountRowsAndColumnsInDGVA(Convert.ToInt32(numericRowsA.Value), Convert.ToInt32(numericColsA.Value));
 
             AddColumnsQ();
-            AddRowsQ(Convert.ToInt32(numericRowsA.Value));
+            SetCountRowsAndColumnsInDGVQ(Convert.ToInt32(numericRowsA.Value) - 1);
 
             AddColumnsR();
-            AddRowsR(Convert.ToInt32(numericColsA.Value));
+            SetCountRowsAndColumnsInDGVR(Convert.ToInt32(numericColsA.Value));
         }
 
         private void AddRowsQ(int count)
@@ -44,7 +44,7 @@ namespace Interface
             for (int i = 0; i < count; i++)
             {
                 dgvQ.Rows.Add();
-                dgvQ.Rows[dgvQ.RowCount - 1].HeaderCell.Value = "Узел №" + (dgvQ.RowCount - 1);
+                dgvQ.Rows[dgvQ.RowCount - 1].HeaderCell.Value = "Узел №" + (dgvQ.RowCount);
             }
         }
 
@@ -94,6 +94,8 @@ namespace Interface
                 dataGridView.AllowUserToResizeRows = true;
                 dataGridView.RowHeadersWidth = 120;
                 dataGridView.ColumnHeadersHeight = 36;
+                dataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dataGridView.DefaultCellStyle.SelectionBackColor = Color.LightGray;
             }
         }
 
@@ -200,6 +202,10 @@ namespace Interface
                 InitDGVs();
                 _filename = openFile.FileName;
                 var fileParams = OpenDGVsParametersAsJson(_filename);
+
+                numericRowsA.Value = fileParams.A.GetLength(0);
+                numericColsA.Value = fileParams.A.GetLength(1);
+                
                 SetCountRowsAndColumnsInDGVA(fileParams.A.GetLength(0), fileParams.A.GetLength(1), new Matrix(fileParams.A));
                 SetCountRowsAndColumnsInDGVR(fileParams.R.GetLength(0), new Matrix(fileParams.R));
                 SetCountRowsAndColumnsInDGVQ(fileParams.Q.Length, new Vector(fileParams.Q));
@@ -253,7 +259,7 @@ namespace Interface
                     dgvR[0, i] = new DataGridViewTextBoxCell() { Value = r[i, i].ToString() };
         }
 
-        private void SetCountRowsAndColumnsInDGVQ(int countRows, Vector q)
+        private void SetCountRowsAndColumnsInDGVQ(int countRows, Vector q = null)
         {
             while (dgvQ.Columns.Count != 1)
             {
@@ -276,25 +282,90 @@ namespace Interface
                     dgvQ[0, i] = new DataGridViewTextBoxCell() { Value = q[i].ToString() };
         }
 
-        private DGVsParameters OpenDGVsParametersAsJson(string filepath)
-        {
-            return JsonConvert.DeserializeObject<DGVsParameters>(File.ReadAllText(filepath));
-        }
+        private DGVsParameters OpenDGVsParametersAsJson(string filepath) => 
+            JsonConvert.DeserializeObject<DGVsParameters>(File.ReadAllText(filepath));
 
         private void Settings_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Alt && e.KeyCode == Keys.X)
             {
-                ApplicationCloseToolStripMenuItem_Click(this, null);
+                ApplicationCloseToolStripMenuItem_Click(null, null);
             }
             else if (e.KeyCode == Keys.F3)
             {
-                OpenFileToolStripMenuItem_Click(this, null);
+                OpenFileToolStripMenuItem_Click(null, null);
             }
             else if ((e.KeyCode == Keys.F2) || (e.Control && e.KeyCode == Keys.S))
             {
-                SaveResultsF2ToolStripMenuItem_Click(this, null);
+                SaveResultsF2ToolStripMenuItem_Click(null, null);
             }
+        }
+
+        private void NumericRowsA_ValueChanged(object sender, EventArgs e)
+        {
+            SetCountRowsAndColumnsInDGVA(Convert.ToInt32(numericRowsA.Value), dgvA.ColumnCount);
+            SetCountRowsAndColumnsInDGVQ(Convert.ToInt32(numericRowsA.Value) - 1);
+        }
+
+        private void NumericColsA_ValueChanged(object sender, EventArgs e)
+        {
+            SetCountRowsAndColumnsInDGVA(dgvA.RowCount, Convert.ToInt32(numericColsA.Value));
+            SetCountRowsAndColumnsInDGVR(Convert.ToInt32(numericColsA.Value));
+        }
+
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            bool throwDialogWindow = false;
+
+            if (IsDGVsFillZero())
+                throwDialogWindow = false;
+            else if (_filename == null)
+                throwDialogWindow = true;
+            else
+            {
+                var jsonParams = OpenDGVsParametersAsJson(_filename);
+                if (!IsMatriciesValuesEqual(jsonParams.A, GetMatrixValuesInDGV(dgvA)) ||
+                    !IsMatriciesValuesEqual(jsonParams.R, GetDiagonalMatrixValuesInDGV(dgvR)) ||
+                    !jsonParams.Q.SequenceEqual(GetVectorValuesInDGV(dgvQ)))
+                    throwDialogWindow = true;
+            }
+
+            if (throwDialogWindow)
+            {
+                var resultAns = MessageBox.Show("Вы не сохранили введённые параметры.\nХотите сохранить их?", "Сохранить?", 
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                if (resultAns == DialogResult.Yes)
+                {
+                    SaveResultsF2ToolStripMenuItem_Click(null, null);
+                }
+                else if (resultAns == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        public bool IsMatriciesValuesEqual(double[,] valuesFirstMatrix, double[,] actualSecondMatrix)
+        {
+            for (int i = 0; i < valuesFirstMatrix.GetLength(0); i++)
+                for (int j = 0; j < valuesFirstMatrix.GetLength(1); j++)
+                    if (valuesFirstMatrix[i, j] != actualSecondMatrix[i, j])
+                        return false;
+
+            return true;
+        }
+
+        private bool IsDGVsFillZero() => IsZeroDGV(dgvA) && IsZeroDGV(dgvQ) && IsZeroDGV(dgvR);
+
+        private bool IsZeroDGV(DataGridView dgv)
+        {
+            for (int i = 0; i < dgv.ColumnCount; i++)
+                for (int j = 0; j < dgv.RowCount; j++)
+                    if (int.TryParse(dgv[i,j].Value as string, out int ans) ? ans != 0 : false)
+                        return false;
+
+            return true;
         }
     }
 }
