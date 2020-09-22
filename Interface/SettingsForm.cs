@@ -367,5 +367,16 @@ namespace Interface
 
             return true;
         }
+
+        private void BTSolveTask_Click(object sender, EventArgs e)
+        {
+            SolutionForm solutionForm = new SolutionForm(
+                new Matrix(GetMatrixValuesInDGV(dgvA)), 
+                new Matrix(GetDiagonalMatrixValuesInDGV(dgvR)),
+                new Vector(GetVectorValuesInDGV(dgvQ)));
+            
+            if (!solutionForm.IsDisposed)
+                solutionForm.ShowDialog();
+        }
     }
 }

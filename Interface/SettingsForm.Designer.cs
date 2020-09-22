@@ -49,6 +49,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dgvR = new System.Windows.Forms.DataGridView();
+            this.btSolveTask = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericColsA)).BeginInit();
@@ -258,11 +259,22 @@
             this.dgvR.Size = new System.Drawing.Size(315, 327);
             this.dgvR.TabIndex = 15;
             // 
+            // btSolveTask
+            // 
+            this.btSolveTask.Location = new System.Drawing.Point(519, 58);
+            this.btSolveTask.Name = "btSolveTask";
+            this.btSolveTask.Size = new System.Drawing.Size(182, 50);
+            this.btSolveTask.TabIndex = 17;
+            this.btSolveTask.Text = "Решить задачу";
+            this.btSolveTask.UseVisualStyleBackColor = true;
+            this.btSolveTask.Click += new System.EventHandler(this.BTSolveTask_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(721, 748);
+            this.Controls.Add(this.btSolveTask);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dgvR);
             this.Controls.Add(this.label4);
@@ -318,6 +330,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dgvR;
+        private System.Windows.Forms.Button btSolveTask;
     }
 }
 

@@ -62,6 +62,8 @@ namespace MatrixLibrary.Models
         public static Matrix operator +(Matrix one, Matrix two) => MatrixController.MatrixAddition(one, two);
         public static bool operator ==(Matrix one, Matrix two) => MatrixController.MatrixComparison(one, two);
         public static bool operator !=(Matrix one, Matrix two) => !MatrixController.MatrixComparison(one, two);
+        public static Matrix operator *(int number, Matrix two) => two.MatrixMultiplicationByNumber(number);
+        public static Matrix operator *(Matrix one, Matrix two) => MatrixController.MatrixMultiplication(one, two);
 
         /// <summary>
         /// Преобразует информацию о классе в переменную строкового типа.

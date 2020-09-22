@@ -23,7 +23,7 @@ namespace MatrixLibrary.Controllers
                 {
                     double elementResult = 0;
 
-                    for (int n = 0; n < one.GetCountRows; n++)
+                    for (int n = 0; n < two.GetCountRows; n++)
                         elementResult += one[i, n] * two[n, j];
 
                     arr[i, j] = elementResult;

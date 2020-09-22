@@ -34,12 +34,13 @@ namespace MatrixLibrary.Controllers
             int currentCol = 0;
             for (int i = 0; i < matrices.Length; i++)
             {
-                int k = 0, l = 0;
+                int k = 0;
                 for (int m = 0; m < matrices.First().GetCountRows; m++)
                 {
-                    for (int n = currentCol; n < matrices[i].GetCountColumns; n++)
+                    int l = 0;
+                    for (int n = currentCol; n < matrices[i].GetCountColumns + currentCol; n++)
                     {
-                        arr[m, n] += matrices[i][k, l];
+                        arr[m, n] = matrices[i][k, l];
                         l++;
                     }
                     k++;
@@ -66,12 +67,13 @@ namespace MatrixLibrary.Controllers
             int currentRow = 0;
             for (int i = 0; i < matrices.Length; i++)
             {
-                int k = 0, l = 0;
+                int k = 0;
                 for (int n = 0; n < matrices.First().GetCountColumns; n++)
                 {
-                    for (int m = currentRow; m < matrices[i].GetCountRows; m++)
+                    int l = 0;
+                    for (int m = currentRow; m < matrices[i].GetCountRows + currentRow; m++)
                     {
-                        arr[m, n] += matrices[i][k, l];
+                        arr[m, n] = matrices[i][l, k];
                         l++;
                     }
                     k++;

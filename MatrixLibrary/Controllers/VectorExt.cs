@@ -45,6 +45,22 @@ namespace MatrixLibrary.Controllers
         }
 
         /// <summary>
+        /// Метод сложения векторов.
+        /// </summary>
+        /// <param name="vector"> Первый вектор. </param>
+        /// <param name="two"> Второй вектор. </param>
+        /// <returns> Вектор - результат сложения. </returns>
+        public static Vector MultiplyingAVectorByANumber(this Vector vector, int number)
+        {
+            var arr = new double[vector.Count];
+
+            for (int i = 0; i < vector.Count; i++)
+                arr[i] = vector[i] * number;
+
+            return new Vector(arr);
+        }
+
+        /// <summary>
         /// Метод сравнения векторов.
         /// </summary>
         /// <param name="one"> Первый вектор. </param>

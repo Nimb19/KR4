@@ -51,25 +51,59 @@ namespace MatrixLibrary.Controllers
             if (_matrix.GetCountColumns != _matrix.GetCountRows)
                 throw new ArgumentException("У матрицы должно совпадать количество строк и столбцов.", nameof(_matrix));
 
-            int i, j, k;
-            double det;
-            int n = _matrix.GetCountColumns;
+            //int i, j, k;
+            //double det;
+            //int n = _matrix.GetCountColumns;
             Matrix matrix = new Matrix(_matrix.ArrayValues.Clone() as double[,]);
 
-            for (i = 0; i < n - 1; i++)
-                for (j = i + 1; j < n; j++)
+            //for (i = 0; i < n - 1; i++)
+            //    for (j = i + 1; j < n; j++)
+            //    {
+            //        var num = matrix[j, i] / matrix[i, i];
+            //        if (Double.IsNaN(num))
+            //            det = 0;
+            //        else if (Double.IsInfinity(num))
+            //            det = 0;
+            //        else
+            //            det = num;
+
+            //        for (k = i; k < n; k++) {
+            //            var res = matrix[j, k] - det * matrix[i, k];
+            //            matrix[j, k] = Double.IsNaN(res) ? 0 : res;
+            //        }
+            //    }
+
+            //det = 1;
+            //for (i = 0; i < n; i++)
+            //    det = det * matrix[i, i];
+
+            //if (det == 0 && throwNewErrorIfTheDeterminantIsZero)
+            //    throw new ZeroDeterminantException(exceptionMessage);
+
+            //return det;
+
+            double det = 0;
+            double value = 0;
+            
+            int n = matrix.GetCountRows;
+
+            for (var i = 0; i < n - 1; i++)
+            {
+                for (var j = i + 1; j < n; j++)
                 {
                     det = matrix[j, i] / matrix[i, i];
-                    for (k = i; k < n; k++)
-                        matrix[j, k] = matrix[j, k] - det * matrix[i, k];
+
+                    for (var k = i; k < n; k++)
+                    {
+                        value = matrix[j, k] - det * matrix[i, k];
+
+                        matrix[j, k] = value;
+                    }
                 }
-
+            }
             det = 1;
-            for (i = 0; i < n; i++)
+            for (var i = 0; i < n; i++)
                 det = det * matrix[i, i];
-
-            if (throwNewErrorIfTheDeterminantIsZero)
-                throw new ZeroDeterminantException(exceptionMessage);
 
             return det;
         }
@@ -94,15 +128,21 @@ namespace MatrixLibrary.Controllers
         /// Метод нахождения обратной матрицы.
         /// </summary>
         /// <param name="matrix"> Матрица. </param>
+        /// <param name="errorMessageNullDeterminant"> Сообщение об ошибке, если главный определитель окажется равен нулю. </param>
         /// <returns> Матрица - результат нахождения обратной матрицы. </returns>
-        public static Matrix InverseOfAMatrix(this Matrix matrix)
+        public static Matrix InverseOfAMatrix(this Matrix matrix, string errorMessageNullDeterminant = null)
         {
             var arr = new double[matrix.GetCountRows, matrix.GetCountColumns];
-            double det = matrix.FindingTheDeterminant();
+            double det = matrix.
+                FindingTheDeterminant(true, 
+                errorMessageNullDeterminant ?? "Найти обратную матрицу невозможно, так как определитель матрицы равен нулю");
 
             for (int i = 0; i < matrix.GetCountRows; i++)
                 for (int j = 0; j < matrix.GetCountColumns; j++)
-                    arr[i, j] = matrix.FindAlgebraicComplement(i, j) / det;
+                {
+                    var doub = matrix.FindAlgebraicComplement(i, j);
+                    arr[i, j] = Double.IsNaN(doub) ? 0 : doub / det;
+                }
 
             return new Matrix(arr).TransposeOfTheMatrix();
         }
