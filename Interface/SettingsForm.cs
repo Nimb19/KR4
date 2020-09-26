@@ -16,7 +16,17 @@ namespace Interface
         public SettingsForm()
         {
             InitializeComponent();
+            new SplashForm().ShowDialog();
+            startTimer.Start();
+
             InitDGVs();
+        }
+
+        private void startTimer_Tick(object sender, EventArgs e)
+        {
+            Opacity += 0.17;
+            if (Opacity == 1)
+                startTimer.Stop();
         }
 
         private void InitDGVs()

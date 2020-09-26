@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-
 using MatrixLibrary.Controllers;
 using MatrixLibrary.Models;
 
@@ -17,6 +16,7 @@ namespace Interface
         {
             InitializeComponent();
             this.DialogResult = DialogResult.OK;
+            startTimer.Start();
 
             _matrixIncident = matrixIncident;
             MatrixIncidentToMatrixA();
@@ -26,28 +26,45 @@ namespace Interface
             SolveTheEquationOfStateMethodAndPrintResults();
         }
 
+        private void startTimer_Tick(object sender, EventArgs e)
+        {
+            Opacity += 0.17;
+            if (Opacity == 1)
+                startTimer.Stop();
+        }
+
         private void SolveTheEquationOfStateMethodAndPrintResults()
         {
-            var Ak = GetSideOfMatrix(_a, Side.k);
-            var Ad = GetSideOfMatrix(_a, Side.d);
-            var Bk = MatrixController.CreateIdentityMatrix(_a.GetCountRows);
-            var Bd = FindBd(Ad, Ak);
-            if (Bd == null)
+            try
             {
+                var Ak = GetSideOfMatrix(_a, Side.k);
+                var Ad = GetSideOfMatrix(_a, Side.d);
+                var Bk = MatrixController.CreateIdentityMatrix(_a.GetCountRows);
+                var Bd = FindBd(Ad, Ak);
+                if (Bd == null)
+                {
+                    this.Close();
+                    return;
+                }
+
+                var B = MatrixController.CreateHorizontalBlockMatrix(Bk, Bd);
+
+                var BR = B * _r;
+                var C = MatrixController.CreateVerticalBlockMatrix(_a, BR);
+                var S = -1 * AddZeroElementsInVectorIfThisNeed(_q, C.GetCountRows);
+
+                var answers = MatrixController.CramerRuleMethod(C, S);
+
+                textBox.Text += "Результаты решения СЛАУ:\r\n";
+                textBox.Text += answers.ToString();
+
+                textBox.Select(textBox.Text.Length, 0);
+            } catch (ZeroDeterminantException exc)
+            {
+                MessageBox.Show(exc.Message, "Определить равен 0", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.Close();
                 return;
             }
-
-            var B = MatrixController.CreateHorizontalBlockMatrix(Bk, Bd);
-            
-            var BR = B * _r;
-            var C = MatrixController.CreateVerticalBlockMatrix(_a, BR);
-            var S = -1 * AddZeroElementsInVectorIfThisNeed(_q, C.GetCountRows);
-
-            var answers = MatrixController.CramerRuleMethod(C, S);
-
-            textBox.Text += "Результаты решения СЛАУ:\n";
-            textBox.Text += answers.ToString();
         }
 
         private Matrix FindBd(Matrix Ad, Matrix Ak)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +51,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dgvR = new System.Windows.Forms.DataGridView();
             this.btSolveTask = new System.Windows.Forms.Button();
+            this.startTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericColsA)).BeginInit();
@@ -269,6 +271,11 @@
             this.btSolveTask.UseVisualStyleBackColor = true;
             this.btSolveTask.Click += new System.EventHandler(this.BTSolveTask_Click);
             // 
+            // startTimer
+            // 
+            this.startTimer.Interval = 10;
+            this.startTimer.Tick += new System.EventHandler(this.startTimer_Tick);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -292,6 +299,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "SettingsForm";
+            this.Opacity = 0D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Форма настройки данных для решения";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
@@ -331,6 +339,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dgvR;
         private System.Windows.Forms.Button btSolveTask;
+        private System.Windows.Forms.Timer startTimer;
     }
 }
 

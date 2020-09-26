@@ -64,6 +64,12 @@
     <Compile Include="SolutionForm.Designer.cs">
       <DependentUpon>SolutionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SplashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashForm.Designer.cs">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -75,9 +81,13 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SolutionForm.resx">
       <DependentUpon>SolutionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashForm.resx">
+      <DependentUpon>SplashForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -95,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\lockscreen.ico" />
+    <Content Include="Images\splashscreen.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MatrixLibrary\MatrixLibrary.csproj">

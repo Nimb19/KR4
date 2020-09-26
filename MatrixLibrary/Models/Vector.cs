@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using System.Text;
 
 using MatrixLibrary.Controllers;
@@ -62,7 +63,14 @@ namespace MatrixLibrary.Models
         /// <returns></returns>
         public override string ToString()
         {
-            return base.ToString();
+            var text = string.Empty;
+            text += "\r\n";
+            
+            for (int i = 0; i < this.Count; i++)
+                text += $" | {new string(this[i].ToString().Take(7).ToArray())} |\r\n";
+
+            text += "\r\n";
+            return text;
         }
 
         public override bool Equals(object obj) => VectorController.VectorComparison(this, obj as Vector);
