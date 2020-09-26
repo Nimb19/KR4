@@ -40,7 +40,7 @@
             this.textBox.Location = new System.Drawing.Point(0, 0);
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(738, 658);
+            this.textBox.Size = new System.Drawing.Size(738, 737);
             this.textBox.TabIndex = 0;
             // 
             // startTimer
@@ -52,7 +52,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(738, 658);
+            this.ClientSize = new System.Drawing.Size(738, 737);
             this.Controls.Add(this.textBox);
             this.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -132,12 +132,14 @@
             this.анализРезультатовРешенияЗадачиToolStripMenuItem.Name = "анализРезультатовРешенияЗадачиToolStripMenuItem";
             this.анализРезультатовРешенияЗадачиToolStripMenuItem.Size = new System.Drawing.Size(395, 22);
             this.анализРезультатовРешенияЗадачиToolStripMenuItem.Text = "Анализ результатов решения задачи";
+            this.анализРезультатовРешенияЗадачиToolStripMenuItem.Click += new System.EventHandler(this.SolveTaskToolStripMenuItem_Click);
             // 
             // графическаяИнтерпритацияРезультатовРешенияЗадачиToolStripMenuItem
             // 
             this.графическаяИнтерпритацияРезультатовРешенияЗадачиToolStripMenuItem.Name = "графическаяИнтерпритацияРезультатовРешенияЗадачиToolStripMenuItem";
             this.графическаяИнтерпритацияРезультатовРешенияЗадачиToolStripMenuItem.Size = new System.Drawing.Size(395, 22);
             this.графическаяИнтерпритацияРезультатовРешенияЗадачиToolStripMenuItem.Text = "Графическая интерпритация результатов решения задачи";
+            this.графическаяИнтерпритацияРезультатовРешенияЗадачиToolStripMenuItem.Click += new System.EventHandler(this.GraphicInterpritationToolStripMenuItem_Click);
             // 
             // dgvA
             // 

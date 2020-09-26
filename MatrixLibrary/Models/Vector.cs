@@ -69,7 +69,6 @@ namespace MatrixLibrary.Models
             for (int i = 0; i < this.Count; i++)
                 text += $" | {new string(this[i].ToString().Take(7).ToArray())} |\r\n";
 
-            text += "\r\n";
             return text;
         }
 

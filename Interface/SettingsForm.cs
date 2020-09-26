@@ -24,7 +24,7 @@ namespace Interface
 
         private void startTimer_Tick(object sender, EventArgs e)
         {
-            Opacity += 0.17;
+            Opacity += 0.24;
             if (Opacity == 1)
                 startTimer.Stop();
         }
@@ -380,13 +380,32 @@ namespace Interface
 
         private void BTSolveTask_Click(object sender, EventArgs e)
         {
-            SolutionForm solutionForm = new SolutionForm(
-                new Matrix(GetMatrixValuesInDGV(dgvA)), 
-                new Matrix(GetDiagonalMatrixValuesInDGV(dgvR)),
-                new Vector(GetVectorValuesInDGV(dgvQ)));
-            
-            if (!solutionForm.IsDisposed)
-                solutionForm.ShowDialog();
+            SolveAndShowTask();
+        }
+
+        private void GraphicInterpritationToolStripMenuItem_Click(object sender, EventArgs e) =>
+            SolveAndShowTask(); // TODO: Сделать адекватную интерпретацию
+
+        private void SolveTaskToolStripMenuItem_Click(object sender, EventArgs e) => 
+            SolveAndShowTask();
+
+        private void SolveAndShowTask()
+        {
+            try
+            {
+                /*SolutionForm solutionForm = */
+                new SolutionForm(
+                    new Matrix(GetMatrixValuesInDGV(dgvA)),
+                    new Matrix(GetDiagonalMatrixValuesInDGV(dgvR)),
+                    new Vector(GetVectorValuesInDGV(dgvQ))).Show();
+
+                //if (!solutionForm.IsDisposed)
+                //    solutionForm.Show();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message + exc.StackTrace, "Непредвиденная ошибка приложения.");
+            }
         }
     }
 }

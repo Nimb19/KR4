@@ -72,26 +72,30 @@ namespace MatrixLibrary.Models
         public override string ToString()
         {
             StringBuilder str = new StringBuilder();
-
-            str.Append(" /");
+            str.Append("\r\n");
+            //str.Append(" /");
             for (int m = 0; m < GetCountRows; m++)
             {
-                if (m != 0)
-                    str.Append("| ");
+                //if (m == GetCountColumns - 1)
+                //    str.Append(@" \");
+                //else if (m != 0)
+                //    str.Append("| ");
+                str.Append("| ");
 
                 for (int n = 0; n < GetCountColumns; n++)
                 {
-                    str.Append(this[m, n]);
-                    if (m != 0 && m != GetCountRows && n == GetCountColumns)
-                        str.Append(" ");
+                    str.Append(this[m, n] + " ");
+                    //if (m != 0 && m != GetCountRows && n == GetCountColumns)
+                    //    str.Append(" ");
                 }
 
-                if (m == 0)
-                    str.Append("\\\n");
-                else if (m != GetCountColumns - 1)
-                    str.Append("|\n");
+                //if (m == 0)
+                //    str.Append("\\\r\n");
+                //else if (m != GetCountColumns - 1)
+                //    str.Append("|\r\n");
+                str.Append("|\r\n");
             }
-            str.Append(@"/");
+            //str.Append(@"/");
 
             return str.ToString();
         }

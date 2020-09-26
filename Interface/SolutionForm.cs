@@ -15,6 +15,7 @@ namespace Interface
         public SolutionForm(Matrix matrixIncident, Matrix r, Vector q)
         {
             InitializeComponent();
+            textBox.ScrollBars = ScrollBars.Vertical;
             this.DialogResult = DialogResult.OK;
             startTimer.Start();
 
@@ -37,35 +38,52 @@ namespace Interface
         {
             try
             {
+                SendMessageInTBox("Решение поставленной задачи:\r\n");
+                
                 var Ak = GetSideOfMatrix(_a, Side.k);
+                SendMessageInTBox("Записываем матрицу Ak:" + Ak);
+                
                 var Ad = GetSideOfMatrix(_a, Side.d);
+                SendMessageInTBox("Записываем матрицу Ad:" + Ad);
+
                 var Bk = MatrixController.CreateIdentityMatrix(_a.GetCountRows);
+                SendMessageInTBox("Создаём единичную матрицу Bk:" + Bk);
+
                 var Bd = FindBd(Ad, Ak);
                 if (Bd == null)
                 {
                     this.Close();
                     return;
                 }
+                SendMessageInTBox("Находим по формуле матрицу Bd:" + Bd);
 
                 var B = MatrixController.CreateHorizontalBlockMatrix(Bk, Bd);
+                SendMessageInTBox("Соединяем части матриц Bk и Bd, найдя матрицу B:" + B);
 
                 var BR = B * _r;
+                SendMessageInTBox("Находим матрицу BR, перемножив матрицу B на матрицу R:" + BR);
+
                 var C = MatrixController.CreateVerticalBlockMatrix(_a, BR);
+                SendMessageInTBox("Создаём блочную матрицу C:" + C);
+
                 var S = -1 * AddZeroElementsInVectorIfThisNeed(_q, C.GetCountRows);
+                SendMessageInTBox("Создаём вектор S, если нужно, дополняя его нулями:" + S);
 
                 var answers = MatrixController.CramerRuleMethod(C, S);
+                SendMessageInTBox("Результаты решения СЛАУ методом Крамера:" + answers.ToString());
 
-                textBox.Text += "Результаты решения СЛАУ:\r\n";
-                textBox.Text += answers.ToString();
-
+                textBox.Text.Trim();
                 textBox.Select(textBox.Text.Length, 0);
-            } catch (ZeroDeterminantException exc)
+            }
+            catch (ZeroDeterminantException exc)
             {
                 MessageBox.Show(exc.Message, "Определить равен 0", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.Close();
                 return;
             }
         }
+
+        private void SendMessageInTBox(string message) => textBox.Text += message + "\r\n";
 
         private Matrix FindBd(Matrix Ad, Matrix Ak)
         {
