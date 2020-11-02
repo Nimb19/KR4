@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using MatrixLibrary.Controllers;
 using MatrixLibrary.Models;
@@ -72,7 +73,10 @@ namespace Interface
                 var answers = MatrixController.CramerRuleMethod(C, S);
                 SendMessageInTBox("Результаты решения СЛАУ методом Крамера:" + answers.ToString());
 
-                textBox.Text.Trim();
+                var balanceEquation = FindBalanceEquationResults(_a, answers, _q);
+                SendMessageInTBox("Уравнение баланса по ветвям:\r\n" + balanceEquation);
+
+                textBox.Text = textBox.Text.Trim();
                 textBox.Select(textBox.Text.Length, 0);
             }
             catch (ZeroDeterminantException exc)
@@ -81,6 +85,40 @@ namespace Interface
                 this.Close();
                 return;
             }
+        }
+
+        private string FindBalanceEquationResults(Matrix a, Vector p, Vector q)
+        {
+            var result = string.Empty;
+            var answer = (a * p) + AddZeroElementsInVectorIfThisNeed(q, p.Count);
+            //answer.ArrayValues = answer.ArrayValues.Select(c => c = Math.Round(c, 5)).ToArray();
+            var sumElements = answer.GetSumOfElemets();
+
+            var text = string.Empty;
+            text += "\r\n";
+
+            for (int i = 0; i < answer.Count; i++)
+            {
+                text += $" | {answer[i]} |";
+
+                if (answer[i] > 0)
+                    text += " - Избыточный продукт экспортируется из узла.";
+                else if (answer[i] < 0)
+                    text += " - Избыточный продукт импортируется из узла.";
+
+                text += "\r\n";
+            }
+
+            result += $"AP + Q = {text}\r\n";
+
+            if (sumElements < 0)
+                result += $"Сумма элементов < 0 ({sumElements}). Избыточный продукт импортируется из узлов.";
+            else if (sumElements > 0)
+                result += $"Сумма элементов > 0 ({sumElements}). Избыточный продукт экспортируется из узлов.";
+            else
+                result += $"Сумма элементов = 0 ({sumElements}). Соответствие между потреблением и производством.";
+
+            return result;
         }
 
         private void SendMessageInTBox(string message) => textBox.Text += message + "\r\n";

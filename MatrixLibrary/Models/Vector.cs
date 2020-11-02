@@ -56,6 +56,7 @@ namespace MatrixLibrary.Models
         public static bool operator ==(Vector one, Vector two) => VectorController.VectorComparison(one, two);
         public static bool operator !=(Vector one, Vector two) => !VectorController.VectorComparison(one, two);
         public static Vector operator *(int number, Vector two) => two.MultiplyingAVectorByANumber(number);
+        public static Vector operator +(Vector one, Vector two) => one.VectorAddition(two);
 
         /// <summary>
         /// Преобразует информацию о классе в переменную строкового типа.

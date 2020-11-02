@@ -10,20 +10,20 @@ namespace MatrixLibrary.Controllers.Tests
     [TestClass]
     public class MatrixControllerTests
     {
-        private static Matrix[] matrices;
-        private static Vector[] vectors;
+        private static Matrix[] matricesForTests;
+        private static Vector[] vectorsForTests;
 
         [ClassInitialize]
         public static void ClassInit(TestContext testContext)
         {
-            matrices = new Matrix[3]
+            matricesForTests = new Matrix[3]
             {
                 new Matrix(new double[2, 2] { { 4, 6 }, { -2, 2 } }),
                 new Matrix(new double[3, 3] { { 3, 5, 1 }, { 2, 5, -7 }, { 6, 4, -2 } }),
                 new Matrix(new double[4, 4] { { 3, 5, 1, -15 }, { 2, 5, -7, -1 }, { 6, 4, -2, 14 }, { 1, 3, -2, 25 } })
             };
 
-            vectors = new Vector[3]
+            vectorsForTests = new Vector[3]
             {
                 new Vector(new double[2] { 3, 1 }),
                 new Vector(new double[3] { 66, 2, -11 }),
@@ -36,8 +36,8 @@ namespace MatrixLibrary.Controllers.Tests
         {
             double[] results = new double[3] { 20, -158, -5054 };
 
-            for (int i = 0; i < matrices.Length; i++)
-                Assert.AreEqual(results[i], matrices[i].FindingTheDeterminant());
+            for (int i = 0; i < matricesForTests.Length; i++)
+                Assert.AreEqual(results[i], matricesForTests[i].FindingTheDeterminant());
         }
 
         [TestMethod]
@@ -50,9 +50,9 @@ namespace MatrixLibrary.Controllers.Tests
                 new Vector(new double[4] { -162, 31, 232, 346})
             };
 
-            Vector[] vectorsActual = new Vector[matrices.Length];
-            for (int i = 0; i < matrices.Length; i++)
-                vectorsActual[i] = matrices[i].MatrixMultiplicationByVector(vectors[i]);
+            Vector[] vectorsActual = new Vector[matricesForTests.Length];
+            for (int i = 0; i < matricesForTests.Length; i++)
+                vectorsActual[i] = matricesForTests[i].MatrixMultiplicationByVector(vectorsForTests[i]);
 
             VectorsComparison(vectorsExpected, vectorsActual, "Несоответствие при проверке результата умножения матрицы на вектор.");
         }
@@ -67,74 +67,66 @@ namespace MatrixLibrary.Controllers.Tests
                 new Matrix(new double[4, 4] { { -0.059, -0.0273, 0.233, -0.167 }, { 0.182, 0.0103, -0.124, 0.179 }, { 0.114, -0.142, -0.0226, 0.0756 }, { -0.0103, -0.0115, -0.00376, 0.0313 } })
             };
 
-            MatriciesComparison(matricesExpected, matrices.Select(x => x.InverseOfAMatrix()).ToArray(), "Несоответствие при проверке результата нахождения обратной матрицы.");
-        }
-
-        [TestMethod]
-        public void MatrixMultiplicationByNumberTest()
-        {
-            throw new NotImplementedException();
-        }
-
-        [TestMethod]
-        public void TransposeOfTheMatrixTest()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        [TestMethod]
-        public void FindAlgebraicComplementTest()
-        {
-            throw new NotImplementedException();
-        }
-
-        [TestMethod]
-        public void MatrixMultiplicationTest()
-        {
-            throw new NotImplementedException();
-        }
-
-        [TestMethod]
-        public void MatrixAdditionTest()
-        {
-            throw new NotImplementedException();
+            MatriciesComparison(matricesExpected, matricesForTests.Select(x => x.InverseOfAMatrix()).ToArray(), "Несоответствие при проверке результата нахождения обратной матрицы.");
         }
 
         [TestMethod]
         public void CreateDiagonalMatrixTest()
         {
-            throw new NotImplementedException();
-        }
+            var matriciesExpected = new Matrix[3]
+            {
+               new Matrix(new double[2, 2] {{ 3, 0 }, { 0, 4} }),
+               new Matrix(new double[3, 3] {{ -2, 0, 0 }, { 0, 6, 0}, { 0, 0, 111} }),
+               new Matrix(new double[5, 5] {{ 113, 0, 0, 0, 0 }, { 0, 21, 0, 0, 0 }, { 0, 0, 51, 0, 0 }, { 0, 0, 0, -331, 0 }, { 0, 0, 0, 0, 35 } })
+            };
 
-        [TestMethod]
-        public void CreateHorizontalBlockMatrixTest()
-        {
-            throw new NotImplementedException();
-        }
+            var matriciesActual = new Matrix[3]
+            {
+                MatrixController.CreateDiagonalMatrix(3, 4),
+                MatrixController.CreateDiagonalMatrix(-2, 6, 111),
+                MatrixController.CreateDiagonalMatrix(113, 21, 51, -331, 35)
+            };
 
-        [TestMethod]
-        public void CreateVerticalBlockMatrixTest()
-        {
-            throw new NotImplementedException();
+            MatriciesComparison(matriciesExpected, matriciesActual,
+                "Несоответствие при проверке результата создания диагональной матрицы.");
         }
 
         [TestMethod]
         public void CreateIdentityMatrixTest()
         {
-            throw new NotImplementedException();
+            var matriciesExpected = new Matrix[3] 
+            {
+               new Matrix(new double[2, 2] {{ 1, 0 }, { 0, 1} }),
+               new Matrix(new double[3, 3] {{ 1, 0, 0 }, { 0, 1, 0}, { 0, 0, 1} }),
+               new Matrix(new double[5, 5] {{ 1, 0, 0, 0, 0 }, { 0, 1, 0, 0, 0 }, { 0, 0, 1, 0, 0 }, { 0, 0, 0, 1, 0 }, { 0, 0, 0, 0, 1 } })
+            };
+
+            var matriciesActual = new Matrix[3]
+            {
+                MatrixController.CreateIdentityMatrix(2),
+                MatrixController.CreateIdentityMatrix(3),
+                MatrixController.CreateIdentityMatrix(5)
+            };
+
+            MatriciesComparison(matriciesExpected, matriciesActual,
+                "Несоответствие при проверке результата создания единичной матрицы.");
         }
 
         [TestMethod]
         public void CramerRuleMethodTest()
         {
-            throw new NotImplementedException();
-        }
+            var vectorsExpected = new Vector[3]
+            {
+                new Vector(new double[2] { 0, 0.5 }),
+                new Vector(new double[3] { -10.481, 17.6266, 9.31013 }),
+                new Vector(new double[4] { -3.04116, 3.52275, 1.03285, 0.301543})
+            };
 
-        [TestMethod]
-        public void ChangeColumnOfMatrixToSpecifiedVectorTest()
-        {
-            throw new NotImplementedException();
+            Vector[] vectorsActual = new Vector[matricesForTests.Length];
+            for (int i = 0; i < matricesForTests.Length; i++)
+                vectorsActual[i] = MatrixController.CramerRuleMethod(matricesForTests[i], vectorsForTests[i]);
+
+            VectorsComparison(vectorsExpected, vectorsActual, "Несоответствие при проверке результата вычисления СЛАУ.");
         }
 
         /// <summary>

@@ -29,6 +29,21 @@ namespace MatrixLibrary.Controllers
         }
 
         /// <summary>
+        /// Метод взятия суммы всех элементов вектора.
+        /// </summary>
+        /// <param name="vector"> Вектор. </param>
+        /// <returns> Сумма элементов вектора. </returns>
+        public static double GetSumOfElemets(this Vector vector)
+        {
+            double result = 0;
+
+            for (int i = 0; i < vector.Count; i++)
+                result += vector[i];
+
+            return result;
+        }
+
+        /// <summary>
         /// Метод сложения векторов.
         /// </summary>
         /// <param name="one"> Первый вектор. </param>
